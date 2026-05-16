@@ -14,17 +14,15 @@ Claude Code skills for LinkedIn outbound using [LinkedNav](https://linkedNav.com
 - A [LinkedNav](https://linkedNav.com) account (free trial available)
 - LinkedNav MCP configured in Claude Code (see below)
 
-### 2. Clone the repo
+### 2. Clone and install
 
 ```bash
-git clone https://github.com/xx254/linkedin-outbound-skills ~/linkedin-outbound-skills
+git clone https://github.com/xx254/linkedin_outbound_skills ~/linkedin-outbound-skills
+cd ~/linkedin-outbound-skills
+bash install.sh
 ```
 
-Then open the folder in Claude Code:
-
-```bash
-claude ~/linkedin-outbound-skills
-```
+This copies the skills to `~/.claude/skills/` where Claude Code can find them. Then restart Claude Code.
 
 ### 3. Configure the LinkedNav MCP
 
