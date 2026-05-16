@@ -61,31 +61,29 @@ When the skill starts (MCP confirmed), tell the user:
 
 ### Step 1 (asked FIRST): Business context
 
-Tell the user: "**Step 1 of 4 — Understanding your business** — I need to know what you're selling before we do anything else."
+Tell the user: "**Step 1 of 3 — Your business** — What's the website of the business you're running LinkedIn outbound for? (or give me a two-sentence description)"
 
-Ask:
+Ask only this one question. After getting the answer, move straight to Step 2 — do NOT ask the user about their LinkedNav setup status.
 
-1. **"What's the website of the business you're running LinkedIn outbound for?"** (or "give me a two-sentence description")
-2. **"Have you set up your ICP profile in LinkedNav yet?"** (yes / no)
-
-These answers determine whether to run `/icp-setup` and which list-building approach to recommend.
-
-When done, tell the user: "Got it. → Next: checking if you have an existing ICP profile or building a new one."
+When done, tell the user: "Got it. Let me check if you already have an ICP profile set up."
 
 ### Step 2: Load or create the ICP profile
 
-Tell the user: "**Step 2 of 4 — ICP Profile** — [If profile exists: Loading your existing ICP. / If no profile: Building your ICP with a ~10-question interview.]"
+Tell the user: "**Step 2 of 3 — Target persona**"
 
-Check for `profiles/<business-slug>/client-profile.yaml`:
+First, call `mcp__claude_ai_LinkedNav__get_ai_setups` to check if any AI setups exist in LinkedNav. Also check for `profiles/<business-slug>/client-profile.yaml`.
 
-- **Exists** → load it. Ask: "Use this existing profile (`use`) or start fresh (`new`)?"
-- **Doesn't exist** → invoke `/icp-setup`. This interviews the user and creates both the local YAML and the AI setup in LinkedNav.
+- **Both exist** → load the profile silently. Tell the user: "Found your existing ICP profile. Let me pull it up." Ask: "Use this profile or start fresh?"
+- **Only local YAML exists** → load it silently, proceed.
+- **Nothing exists** → tell the user: "No ICP profile found — let's build one. I'll ask you ~10 questions about who you're targeting." Then invoke `/icp-setup`.
+
+Do not ask the user to tell you whether they've set up an ICP. Check it yourself.
 
 When done, tell the user: "ICP is ready. → Next: picking your list-building approach."
 
 ### Step 3: Interactive next-skill menu
 
-Tell the user: "**Step 3 of 4 — List-building approach** — Based on your ICP, here's my recommendation for how to find leads."
+Tell the user: "**Step 3 of 3 — List-building approach** — Based on your ICP, here's my recommendation for how to find leads."
 
 Once ICP is ready, show the list-building options:
 
@@ -109,7 +107,7 @@ When done, tell the user: "Got it. I'll save your campaign plan and hand you off
 
 ### Step 4: Synthesize campaign-plan.md
 
-Tell the user: "**Step 4 of 4 — Campaign plan** — Saving your campaign checklist so you have a single reference for the full workflow."
+Tell the user: "**Almost done — Campaign plan** — Saving your campaign checklist so you have a single reference for the full workflow."
 
 Write `profiles/<slug>/campaign-plan.md`:
 

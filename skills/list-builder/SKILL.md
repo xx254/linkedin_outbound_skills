@@ -26,6 +26,16 @@ LinkedNav campaigns run on lists. Before you can send connection requests or mes
 When the skill starts, tell the user:
 "I'll import your contacts into a named LinkedNav list. Have your CSV ready — it needs at minimum a linkedin_url column, or first_name + last_name + company_name."
 
+### Step 0: Get active AI setup
+
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` and identify the currently active AI setup.
+
+Extract its slug/name (e.g., `elevenlabs-icp`, `acme-saas`). This will be used as the prefix for the list name to keep leads from different AI setups separated.
+
+**If no active AI setup exists:**
+Tell the user: "You need an ICP profile set up before building a list — this ensures leads from different campaigns don't get mixed together. Run `/icp-setup` first, then come back."
+Stop.
+
 ### Step 1: Check existing lists
 
 Tell the user: "**Step 1 of 5 — Existing lists** — Checking what lists you already have so we don't create duplicates."
@@ -45,7 +55,10 @@ When done, tell the user: "Got it. [Creating a new list / Adding to your existin
 
 Tell the user: "**Step 2 of 5 — Creating list** — Setting up a named list for this campaign."
 
-Ask for a name. Suggest: `<icp-slug>-<YYYY-MM-DD>` (e.g., `vp-marketing-us-2026-05-16`).
+Suggest a name using the active AI setup slug as prefix: `<ai-setup-slug>-csv-<YYYY-MM-DD>`
+Example: if active setup is `elevenlabs-icp` → suggest `elevenlabs-icp-csv-2026-05-16`.
+
+The user may adjust the middle part but the AI setup slug prefix is required. Do not create a list without it.
 
 Call `mcp__claude_ai_LinkedNav__create_list` with the name.
 
@@ -118,13 +131,19 @@ https://linkedin.com/in/janedoe,Jane,Doe,VP Marketing,Acme,acme.com
 
 ## List naming conventions
 
-Good names tell you exactly what's in the list:
-- `vp-marketing-us-funded-2026-05` — VP Marketing, US, recently funded
-- `social-listening-competitor-a-may26` — engagers from Competitor A
-- `inbound-demo-requests-q2-2026` — inbound leads
-- `account-list-top50-targets` — named account ABM
+All lists must be prefixed with the active AI setup slug to keep leads from different ICPs separated:
 
-Bad names: `list1`, `test`, `may leads`
+```
+<ai-setup-slug>-<source>-<YYYY-MM-DD>
+```
+
+Examples (AI setup: `elevenlabs-icp`):
+- `elevenlabs-icp-csv-2026-05-16` — CSV import
+- `elevenlabs-icp-social-listening-2026-05` — competitor engagers
+- `elevenlabs-icp-signal-agent-2026-05` — intent signals
+- `elevenlabs-icp-inbound-q2` — inbound leads
+
+Bad names: `list1`, `test`, `may leads`, or any name without the AI setup prefix.
 
 ## What to do next
 

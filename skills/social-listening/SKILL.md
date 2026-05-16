@@ -28,6 +28,14 @@ This skill monitors the right posts, pulls the engagers, imports them as leads, 
 
 > Tell the user: "I'm going to find people who are already engaging with your competitors on LinkedIn — these are your warmest leads. We'll track the right accounts, pull engagers, and build your list."
 
+### Step 0: Get active AI setup
+
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` and identify the currently active AI setup. Extract its slug/name — this will prefix all list names to keep leads from different AI setups separated.
+
+**If no active AI setup exists:**
+Tell the user: "You need an ICP profile before building a list — run `/icp-setup` first, then come back."
+Stop.
+
 ### Step 1: Identify who to track
 
 > Tell the user: "**Step 1 of 7 — Who to track.** I need your competitors' LinkedIn company pages and any key influencers in your space."
@@ -124,7 +132,7 @@ Social listening stats:
 Ask:
 > "Import these <N> engagers to a new list or an existing one?"
 
-If new list: call `mcp__claude_ai_LinkedNav__create_list` with name `social-listening-<date>`.
+If new list: call `mcp__claude_ai_LinkedNav__create_list` with name `<ai-setup-slug>-social-listening-<date>` (e.g., `elevenlabs-icp-social-listening-2026-05`). The AI setup slug prefix is required.
 
 Then call `mcp__claude_ai_LinkedNav__add_leads_bulk_to_campaign` or add contacts to the list.
 

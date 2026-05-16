@@ -26,6 +26,14 @@ The best time to reach a Head of Marketing is the week they started a new role. 
 
 > Tell the user: "I'm going to set up LinkedNav's signal agent — it finds people who are showing buying intent right now (new job, funding, competitor engagement). These leads outperform cold lists 2-3x."
 
+### Step 0: Get active AI setup
+
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` and identify the currently active AI setup. Extract its slug/name — all lists created for signal leads will be prefixed with this slug to keep leads from different AI setups separated.
+
+**If no active AI setup exists:**
+Tell the user: "You need an ICP profile before running signal agents — run `/icp-setup` first, then come back."
+Stop.
+
 ### Step 1: Check existing signal agents
 
 > Tell the user: "**Step 1 of 6 — Current setup.** Checking what signal agents are already configured."
@@ -126,6 +134,8 @@ Signal leads this week:
 ```
 
 For each lead, offer: Add to list / Skip / Add to different list.
+
+When adding to a list, always use or create a list named `<ai-setup-slug>-signal-agent-<date>` (e.g., `elevenlabs-icp-signal-agent-2026-05`). The AI setup slug prefix is required — do not add signal leads to a list belonging to a different AI setup.
 
 > When done, tell the user: "[N leads added.] → Next: /list-quality to score the list, then /message-copywriting to write signal-specific connection notes."
 
