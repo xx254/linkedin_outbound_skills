@@ -16,7 +16,12 @@ Gets your LinkedNav account created and Claude Code wired up to it via MCP. Link
 
 ## Steps
 
+When the skill starts, tell the user:
+"I'll get your LinkedNav account connected to Claude Code. This takes about 5 minutes."
+
 ### Step 1: Check if user has a LinkedNav account
+
+Tell the user: "**Step 1 of 4 — LinkedNav account** — Checking if you have a LinkedNav account before we do anything else."
 
 Ask:
 > "Do you already have a LinkedNav account at app.linkedNav.com?"
@@ -31,7 +36,11 @@ After you've created your account, come back here and I'll continue.
 
 **If YES:** proceed to Step 2.
 
+When done, tell the user: "Account confirmed. → Next: testing if Claude Code can talk to LinkedNav."
+
 ### Step 2: Check MCP integration
+
+Tell the user: "**Step 2 of 4 — MCP connection** — Testing if Claude Code can talk to LinkedNav."
 
 Call `mcp__claude_ai_LinkedNav__get_dashboard_summary` to verify the MCP connection is live.
 
@@ -46,7 +55,11 @@ The LinkedNav MCP integration isn't connected. Let's fix that.
 3. You'll need your LinkedNav API key (see Step 3)
 ```
 
+When done, tell the user: "MCP connection verified. → Next: setting up your API key so Claude Code can call LinkedNav."
+
 ### Step 3: Get the API key
+
+Tell the user: "**Step 3 of 4 — API key** — Setting up the API key so Claude Code can authenticate with LinkedNav."
 
 Guide the user to their LinkedNav API key:
 
@@ -64,7 +77,11 @@ To connect Claude Code to LinkedNav:
 
 Confirm the key is working by calling `mcp__claude_ai_LinkedNav__get_account_status`.
 
+When done, tell the user: "API key is working. → Next: confirming your plan supports campaigns."
+
 ### Step 4: Check billing
+
+Tell the user: "**Step 4 of 4 — Billing** — Confirming your plan supports campaigns and checking your send limits."
 
 Call `mcp__claude_ai_LinkedNav__get_billing_summary` and confirm they're on a plan that supports campaigns. Warn if they're on a free/trial plan that limits daily sends.
 
@@ -74,6 +91,8 @@ LinkedNav account: active
 MCP integration: connected
 Plan: <plan name> — supports up to <N> campaigns / <N> messages/day
 ```
+
+When done, tell the user: "All set. LinkedNav is connected and your plan supports campaigns. → Next step: run /kickoff to define your ICP and pick a list-building approach."
 
 ## What to do next
 

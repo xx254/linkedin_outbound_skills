@@ -37,7 +37,11 @@ LinkedIn copy fails differently than cold email. The biggest mistake: pitching i
 
 ---
 
+> Tell the user: "I'll write your connection request and message sequence step by step, confirming each piece before moving on. LinkedIn copy fails when it pitches too early — I'll make sure the sequence earns trust before asking for anything."
+
 ## Step 1: Confirm campaign angle
+
+> Tell the user: "**Step 1 of 6 — Campaign direction.** Reading your ICP profile and confirming the targeting before I write a word."
 
 Read `client-profile.yaml`. Present a summary:
 
@@ -51,6 +55,8 @@ Campaign Direction:
 
 Does this look right? Confirm or correct before I write.
 ```
+
+> When done, tell the user: "Direction confirmed. Writing your connection note now."
 
 ### Three connection note angles
 
@@ -71,6 +77,8 @@ For warm lists where context is obvious, just be honest and short.
 ---
 
 ## Step 2: Write the connection note
+
+> Tell the user: "**Step 2 of 6 — Connection note (≤300 chars).** I'll give you 3 options — one for each angle. Pick one or ask for more."
 
 Present 3 options (one per angle above). For each:
 - Full text
@@ -93,9 +101,13 @@ Angle B (cold list, specific):
 — 136 chars ✓
 ```
 
+> When done, tell the user: "Connection note locked. → Next: message 1 (sent after they accept)."
+
 ---
 
 ## Step 3: Write message 1 (after acceptance)
+
+> Tell the user: "**Step 3 of 6 — Message 1.** This goes out after acceptance. Goal: start a conversation, not close a deal. No pitch yet."
 
 Message 1 goal: **start a conversation, not close a deal**. Offer something — an insight, a resource, a question — without asking for anything big.
 
@@ -130,9 +142,13 @@ Happy to share what we've seen from [similar companies].
 
 Present all three with recommendation. Get approval before continuing.
 
+> When done, tell the user: "Message 1 approved. → Next: message 2 (follow-up if no reply)."
+
 ---
 
 ## Step 4: Write message 2 (follow-up)
+
+> Tell the user: "**Step 4 of 6 — Message 2.** Re-engage with a fresh angle. Never 'following up on my last message'."
 
 Message 2 goal: **re-engage with a different angle**. Don't repeat message 1. Rotate value prop.
 
@@ -149,9 +165,13 @@ Rules:
 Worth a quick chat?
 ```
 
+> When done, tell the user: "Message 2 done. → Want a message 3 break-up message? (Optional but recommended.)"
+
 ---
 
 ## Step 5: Write message 3 (optional break-up)
+
+> Tell the user: "**Step 5 of 6 — Message 3 (optional break-up).** Short, low-pressure, final touch."
 
 Short, low-pressure, final message. 1-2 sentences max.
 
@@ -166,9 +186,13 @@ Or redirect:
 <First name>, if [relevant role] would be a better fit for this conversation, happy to reach out to them instead. Let me know.
 ```
 
+> When done, tell the user: "Sequence complete. Saving now."
+
 ---
 
 ## Step 6: Output final sequence
+
+> Tell the user: "**Step 6 of 6 — Saving sequence.** Writing to linkedin-sequence.md and running the QA checklist."
 
 ```markdown
 ## LinkedIn Sequence — <campaign name>
@@ -205,6 +229,8 @@ Subject: N/A (LinkedIn messages have no subject)
 ```
 
 Save to `profiles/<slug>/campaigns/<campaign-slug>/linkedin-sequence.md`.
+
+> When done, tell the user: "Sequence saved. → Next: /campaign-builder to create the campaign and launch."
 
 ---
 

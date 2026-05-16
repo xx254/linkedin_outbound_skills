@@ -24,7 +24,11 @@ The best time to reach a Head of Marketing is the week they started a new role. 
 
 ## Steps
 
+> Tell the user: "I'm going to set up LinkedNav's signal agent — it finds people who are showing buying intent right now (new job, funding, competitor engagement). These leads outperform cold lists 2-3x."
+
 ### Step 1: Check existing signal agents
+
+> Tell the user: "**Step 1 of 6 — Current setup.** Checking what signal agents are already configured."
 
 Call `mcp__claude_ai_LinkedNav__get_signal_agent_settings` to see what's already configured.
 
@@ -37,7 +41,11 @@ Signal agents:
 - Leads found (last 30 days): <N>
 ```
 
+> When done, tell the user: "→ Choosing which signal type to run first."
+
 ### Step 2: Configure signal type
+
+> Tell the user: "**Step 2 of 6 — Signal type.** Picking the right signal for your ICP. I'll recommend one, but you choose."
 
 Ask which signal type to monitor. For most users, start with:
 1. **Job change** (easiest to personalize: "Congrats on the new role")
@@ -48,14 +56,22 @@ For each signal type, configure:
 - Which industries or companies to scope to
 - How far back to look (7 days / 30 days / 90 days)
 
+> When done, tell the user: "Signal configured. → Setting the run schedule."
+
 ### Step 3: Set auto-run
+
+> Tell the user: "**Step 3 of 6 — Schedule.** Setting how often the agent runs. Daily is recommended."
 
 Call `mcp__claude_ai_LinkedNav__set_signal_agent_auto_run` to schedule the agent:
 - Daily (recommended)
 - Weekly
 - Manual only
 
+> When done, tell the user: "Schedule set. → Deciding whether to auto-add leads to a campaign."
+
 ### Step 4: Set auto-add (optional)
+
+> Tell the user: "**Step 4 of 6 — Auto-add (optional).** Warning: only enable this after you've reviewed at least 1 week of leads manually."
 
 Call `mcp__claude_ai_LinkedNav__set_signal_agent_auto_add` to automatically add signal leads to a campaign.
 
@@ -67,7 +83,11 @@ Ask:
 If review-first: set to manual add. Show leads via Step 6 each week.
 If auto-add: confirm the target campaign, then enable.
 
+> When done, tell the user: "→ Running the agent now to get your first batch of leads."
+
 ### Step 5: Run the agent now
+
+> Tell the user: "**Step 5 of 6 — Running.** Scanning LinkedIn for intent signals now. This takes a minute."
 
 Call `mcp__claude_ai_LinkedNav__run_intent_agent` to trigger an immediate run.
 
@@ -81,7 +101,11 @@ Signal agent running...
 - Added to review queue: <N>
 ```
 
+> When done, tell the user: "[N leads found.] → Let's review them."
+
 ### Step 6: Review signal leads
+
+> Tell the user: "**Step 6 of 6 — Reviewing leads.** Here are the people who triggered a signal this week. For each one: add to list, skip, or add to a different list."
 
 Call `mcp__claude_ai_LinkedNav__get_signal_leads` to show detected leads:
 
@@ -102,6 +126,8 @@ Signal leads this week:
 ```
 
 For each lead, offer: Add to list / Skip / Add to different list.
+
+> When done, tell the user: "[N leads added.] → Next: /list-quality to score the list, then /message-copywriting to write signal-specific connection notes."
 
 ### Step 7: Personalize connection notes for signal leads
 

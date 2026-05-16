@@ -76,15 +76,25 @@ Weighted average (URL validity weighted 2x):
 
 ## Steps
 
+> Tell the user: "I'm going to score your list across 6 dimensions before you send a single connection request. This catches bad data that would waste your weekly connection quota."
+
 ### Step 1: Load the list
+
+> Tell the user: "**Step 1 of 4 — Loading list.** Pulling your contacts from LinkedNav."
 
 Ask which LinkedNav list to score. If they don't know the list ID, call `mcp__claude_ai_LinkedNav__get_lists` to show options.
 
 Call `mcp__claude_ai_LinkedNav__get_list_contacts` to pull all contacts.
 
+> When done, tell the user: "[N] contacts loaded. Running quality checks now."
+
 ### Step 2: Run each dimension
 
+> Tell the user: "**Step 2 of 4 — Scoring.** Checking LinkedIn URL validity, duplicates, title relevance, bad titles, profile completeness, and ICP fit."
+
 Score each dimension programmatically from the contact data. For ICP fit, load `client-profile.yaml` if available.
+
+> When done, tell the user: "Scoring done. Here's your scorecard."
 
 ### Step 3: Present the scorecard
 
@@ -115,7 +125,11 @@ Pre-send checklist:
 [ ] Run /lead-enrichment if email addresses needed
 ```
 
+> After showing the scorecard, tell the user: "→ If score ≥ 7: you're good to go → /message-copywriting. If score < 7: let's fix the top issues first."
+
 ### Step 4: Fix issues (if grade < B)
+
+> Tell the user: "**Step 4 of 4 — Fixing issues.** [Removing duplicates / filtering off-ICP titles / handling invalid URLs]. I'll show you each change before making it."
 
 For duplicate cleanup: call `mcp__claude_ai_LinkedNav__bulk_delete_contacts` on duplicates.
 
@@ -124,6 +138,8 @@ For off-ICP title filtering: show the list of flagged contacts, confirm which to
 For missing LinkedIn URLs: these contacts cannot be reached via LinkedIn outbound. Offer to move them to a separate list for email outreach instead.
 
 Re-run the scorecard after fixes until score ≥ 7.
+
+> When done, tell the user: "Fixes applied. Re-running the score to confirm. → When score ≥ 7: next step is /message-copywriting."
 
 ## LinkedIn-specific limits
 

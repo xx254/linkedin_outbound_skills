@@ -26,7 +26,11 @@ LinkedNav campaigns are the engine. Without a properly configured campaign, sequ
 
 ## Steps
 
+> Tell the user: "I'll build your campaign in LinkedNav, step by step. Everything starts PAUSED — you review before anything goes live."
+
 ### Step 1: Check existing campaigns
+
+> Tell the user: "**Step 1 of 8 — Checking existing campaigns.** Making sure you're not about to create a duplicate."
 
 Call `mcp__claude_ai_LinkedNav__get_campaigns` and show active campaigns:
 ```
@@ -37,7 +41,11 @@ Active campaigns:
 
 Warn if there are already 3+ active campaigns on one LinkedIn account — LinkedIn flags high simultaneous outreach volume.
 
+> When done, tell the user: "[N active campaigns found.] Ready to create your new campaign."
+
 ### Step 2: Name the campaign
+
+> Tell the user: "**Step 2 of 8 — Campaign name.** I'll suggest a name based on your ICP and list source."
 
 Suggest: `<icp-slug>-<list-source>-<YYYY-MM-DD>`
 Examples:
@@ -45,7 +53,11 @@ Examples:
 - `head-growth-csv-import-2026-05`
 - `cmo-competitor-engagers-q2`
 
+> When done, tell the user: "Name confirmed. Creating the campaign now."
+
 ### Step 3: Create the campaign
+
+> Tell the user: "**Step 3 of 8 — Creating campaign.** Setting up the campaign in LinkedNav with your message sequence."
 
 Call `mcp__claude_ai_LinkedNav__create_campaign` with:
 - Name
@@ -55,13 +67,21 @@ Call `mcp__claude_ai_LinkedNav__create_campaign` with:
 
 Show the created campaign ID and confirm it was created successfully.
 
+> When done, tell the user: "Campaign created (status: PAUSED). → Linking your contact list."
+
 ### Step 4: Link the list
+
+> Tell the user: "**Step 4 of 8 — Linking list.** Connecting your contact list to this campaign."
 
 Call `mcp__claude_ai_LinkedNav__link_list_to_campaign` with the campaign ID and list ID.
 
 Confirm: "List `<list name>` (<N> contacts) linked to campaign `<campaign name>`."
 
+> When done, tell the user: "[N] contacts linked. → Configuring daily limits."
+
 ### Step 5: Configure campaign settings
+
+> Tell the user: "**Step 5 of 8 — Daily limits.** Setting safe sending limits so LinkedIn doesn't flag your account."
 
 Call `mcp__claude_ai_LinkedNav__update_campaign` to set:
 
@@ -86,7 +106,11 @@ Show recommended settings based on account age:
 
 Ask the user to confirm or adjust before saving.
 
+> When done, tell the user: "Limits set. → Time to review everything before we go live."
+
 ### Step 6: Review campaign before launch
+
+> Tell the user: "**Step 6 of 8 — Campaign review.** Here's everything: messages, list, daily limits, and estimated timeline. Review carefully — reply YES to continue or tell me what to change."
 
 Call `mcp__claude_ai_LinkedNav__get_campaign` and display a full summary:
 
@@ -120,7 +144,11 @@ Does everything look right? Reply YES to activate or tell me what to change.
 
 **DO NOT activate without explicit "yes" from the user.** Real messages go to real people.
 
+> When done (after user says YES), tell the user: "→ Checking your LinkedIn account connection."
+
 ### Step 7: Connect LinkedIn account
+
+> Tell the user: "**Step 7 of 8 — LinkedIn account.** Verifying your LinkedIn account is connected and healthy before sending anything."
 
 Before activating, verify a LinkedIn account is connected to LinkedNav.
 
@@ -162,7 +190,11 @@ After they return, call `mcp__claude_ai_LinkedNav__get_linkedin_accounts` again 
 
 Don't proceed to Step 8 if health shows a blocking warning.
 
+> When done, tell the user: "[Account confirmed healthy.] → Ready to activate. Last chance to review."
+
 ### Step 8: Activate
+
+> Tell the user: "**Step 8 of 8 — Activating.** This is the final step. Real messages will go to real people."
 
 Only after explicit confirmation AND LinkedIn account is connected and healthy:
 
@@ -176,6 +208,8 @@ Sending will start within the next scheduled active window (<timezone>, M-F 9am-
 
 Recommended: check /analytics after 3 days to see early acceptance rates.
 ```
+
+> When done, tell the user: "Campaign is LIVE. → Check /analytics in 3 days. → Check /inbox-manager daily for replies."
 
 ## Safety rails
 

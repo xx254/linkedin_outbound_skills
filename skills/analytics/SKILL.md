@@ -16,7 +16,11 @@ Reviews what's working, what's not, and what to change next week.
 
 ## Steps
 
+> Tell the user: "I'll pull your campaign performance and tell you exactly what's working, what's not, and what to change. Takes about 2 minutes."
+
 ### Step 1: Dashboard overview
+
+> Tell the user: "**Step 1 of 6 — Overall stats.** Getting the big picture across all campaigns."
 
 Call `mcp__claude_ai_LinkedNav__get_dashboard_summary`:
 
@@ -32,7 +36,11 @@ Overall:
 - Positive replies: <N> (<rate>% of replies)
 ```
 
+> When done, tell the user: "→ Now breaking down by campaign."
+
 ### Step 2: Per-campaign breakdown
+
+> Tell the user: "**Step 2 of 6 — Campaign breakdown.** Showing acceptance rate and reply rate for each campaign. Flagging anything that's underperforming."
 
 Call `mcp__claude_ai_LinkedNav__get_campaigns_summary` and `mcp__claude_ai_LinkedNav__get_performance_analytics`.
 
@@ -52,13 +60,21 @@ Flag underperformers:
 - Reply rate < 3%: 🟠 message 1 or 2 problem
 - Both low: 🔴 targeting problem (wrong ICP or list)
 
+> When done, tell the user: "→ Checking your send queue."
+
 ### Step 3: Scheduled sends review
+
+> Tell the user: "**Step 3 of 6 — Scheduled sends.** Making sure campaigns have sends queued for the next 48 hours."
 
 Call `mcp__claude_ai_LinkedNav__get_scheduled_sends` to see what's queued for the next 48 hours.
 
 Flag if any campaign has no sends scheduled (could mean it's paused or list is exhausted).
 
+> When done, tell the user: "→ Diagnosing any issues I found."
+
 ### Step 4: Diagnosis and recommendations
+
+> Tell the user: "**Step 4 of 6 — Diagnosis.** Based on the numbers, here's what's working and what needs to change — with specific fix options."
 
 Based on the metrics, recommend the next action:
 
@@ -96,13 +112,21 @@ Connection note may be too generic ("fellow [industry] operator here").
 Fix: Make the connection note more specific to the offer.
 ```
 
+> When done, tell the user: "→ Checking list health."
+
 ### Step 5: List health
+
+> Tell the user: "**Step 5 of 6 — List health.** Checking if any campaign is about to run out of contacts."
 
 Check if the list is running low:
 - If < 20% of list remains unsent: warn and plan the next list build
 - If list is exhausted: campaign will stall — start `/list-builder` or `/social-listening`
 
+> When done, tell the user: "→ Checking your LinkedIn account status."
+
 ### Step 6: Account health check
+
+> Tell the user: "**Step 6 of 6 — Account health.** Making sure no LinkedIn warnings have appeared."
 
 Call `mcp__claude_ai_LinkedNav__get_account_status`:
 - Any new warnings?
@@ -110,6 +134,8 @@ Call `mcp__claude_ai_LinkedNav__get_account_status`:
 - Authentication issues?
 
 If account is flagged or throttled: pause all campaigns until resolved.
+
+> When done, tell the user: "Review complete. [→ Next action based on diagnosis: /message-copywriting if copy issues / /list-builder or /social-listening if list running low / /inbox-manager if replies are piling up]"
 
 ## Benchmark targets
 

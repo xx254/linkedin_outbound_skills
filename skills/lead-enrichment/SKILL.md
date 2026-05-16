@@ -19,7 +19,11 @@ LinkedIn outreach alone has a ceiling: ~100 connection requests/week per account
 
 ## Steps
 
+> Tell the user: "I'm going to add email addresses (and optionally phone numbers) to your LinkedIn contacts so you can reach them across channels. Email enrichment finds addresses for ~60-80% of B2B contacts."
+
 ### Step 1: Check enrichment status
+
+> Tell the user: "**Step 1 of 4 — Current status.** Checking how many contacts already have emails/phones."
 
 For a specific contact or a batch, check current enrichment status:
 
@@ -31,7 +35,11 @@ Phone enriched: <N> (<rate>%)
 Pending enrichment: <N>
 ```
 
+> When done, tell the user: "[N contacts need enrichment.] → Starting email enrichment."
+
 ### Step 2: Enrich emails
+
+> Tell the user: "**Step 2 of 4 — Email enrichment.** Finding email addresses for your contacts. For large lists this runs in the background — I'll show progress."
 
 **For a single contact:**
 Call `mcp__claude_ai_LinkedNav__enrich_contact_email` with the contact ID.
@@ -56,7 +64,11 @@ Email enrichment complete:
 - Confidence: <% high confidence / % medium / % low>
 ```
 
+> When done, tell the user: "[N emails found (rate%).] → Want to enrich phone numbers too? (Uses additional credits.)"
+
 ### Step 3: Enrich phone (optional)
+
+> Tell the user: "**Step 3 of 4 — Phone enrichment (optional).** Adding phone numbers for multi-channel outreach."
 
 Ask: "Do you also want to enrich phone numbers? Phone enrichment costs additional credits."
 
@@ -66,7 +78,11 @@ If yes:
 
 Check phone enrichment status: `mcp__claude_ai_LinkedNav__get_phone_enrichment_status`
 
+> When done, tell the user: "[N phones found.] → Reviewing the enriched data for quality issues."
+
 ### Step 4: Validate enriched data
+
+> Tell the user: "**Step 4 of 4 — Validation.** Flagging catch-all emails and any suspicious data before you send."
 
 After enrichment, call `mcp__claude_ai_LinkedNav__get_contacts` to review a sample of enriched contacts.
 
@@ -74,6 +90,8 @@ Flag:
 - Emails that look like catch-all patterns (info@, contact@) — deprioritize for email outreach
 - Emails on domains different from the company domain — verify before sending
 - Missing emails (will need LinkedIn-only outreach)
+
+> When done, tell the user: "Enrichment complete. → Next: /list-quality to re-grade (catch-all detection), then /campaign-builder to launch."
 
 ### Step 5: Export for email campaign
 

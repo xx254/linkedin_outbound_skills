@@ -15,7 +15,11 @@ A campaign that sends great connection requests but ignores replies will close 0
 
 ## Steps
 
+> Tell the user: "I'm going to work through your inbox — unread threads first, then pending AI replies. This is your daily 10-minute inbox session."
+
 ### Step 1: Check unread count
+
+> Tell the user: "**Step 1 of 9 — Inbox count.** Checking how many messages need attention."
 
 Call `mcp__claude_ai_LinkedNav__get_unibox_unread_count` first:
 ```
@@ -25,11 +29,19 @@ Pending AI replies to approve: <N>
 
 If 0 unread and 0 pending: "Inbox is clear. Nothing to review."
 
+> When done, tell the user: "[N unread, N pending.] → Syncing latest from LinkedIn."
+
 ### Step 2: Sync unibox
+
+> Tell the user: "**Step 2 of 9 — Syncing.** Pulling the latest messages from LinkedIn to make sure nothing is missed."
 
 Call `mcp__claude_ai_LinkedNav__sync_unibox` to pull latest messages from LinkedIn. This ensures you're seeing real-time data.
 
+> When done, tell the user: "Sync done. → Reviewing your conversations."
+
 ### Step 3: Review unread threads
+
+> Tell the user: "**Step 3 of 9 — Reviewing threads.** I'll categorize each reply (HOT / POSITIVE / NEUTRAL / SOFT NO / HARD NO) so we prioritize correctly."
 
 Call `mcp__claude_ai_LinkedNav__get_unibox` and display a summary of unread threads:
 
@@ -55,7 +67,11 @@ Unread conversations:
 
 Categorize each reply as: HOT / POSITIVE / NEUTRAL / SOFT NO / HARD NO / OUT OF OFFICE.
 
+> When done, tell the user: "Threads reviewed. → Handling HOT and POSITIVE replies first."
+
 ### Step 4: Handle HOT and POSITIVE replies first
+
+> Tell the user: "**Step 4 of 9 — Priority replies.** Responding to your best leads first. HOT leads need a reply within an hour if possible."
 
 For HOT replies (expressed interest, asking for next step):
 
@@ -77,7 +93,11 @@ For POSITIVE replies (engaged but no clear ask):
 
 Ask one clarifying question to qualify them. Don't pitch until you understand their situation.
 
+> When done, tell the user: "Priority replies handled. → Reviewing AI-drafted replies."
+
 ### Step 5: Review and approve pending AI replies
+
+> Tell the user: "**Step 5 of 9 — AI reply approval.** LinkedNav has drafted replies for some threads. I'll show each one — you approve, edit, or reject before anything sends."
 
 Call `mcp__claude_ai_LinkedNav__get_pending_replies` to see AI-drafted replies waiting for approval.
 
@@ -100,7 +120,11 @@ To regenerate: `mcp__claude_ai_LinkedNav__regenerate_pending_reply`
 
 **Never auto-approve pending replies without showing them to the user first.**
 
+> When done, tell the user: "[N replies approved.] → Checking pending comments."
+
 ### Step 6: Handle pending comments
+
+> Tell the user: "**Step 6 of 9 — Pending comments.** Reviewing any AI-drafted comments on posts that need your sign-off."
 
 Call `mcp__claude_ai_LinkedNav__get_pending_comments` for any pending AI comments on posts.
 
@@ -108,7 +132,11 @@ Same flow: approve, edit, or deny each.
 
 Call `mcp__claude_ai_LinkedNav__get_pending_comments_count` to show total volume.
 
+> When done, tell the user: "Comments handled. → Any threads that need a custom reply from you?"
+
 ### Step 7: Send manual replies
+
+> Tell the user: "**Step 7 of 9 — Manual replies.** For HOT leads and tricky conversations — I'll draft, you send."
 
 For threads where you want to write a custom reply:
 
@@ -119,11 +147,17 @@ Use this for:
 - NEGATIVE / defensive replies (requires careful human tone)
 - Complex questions that need specific answers
 
+> When done, tell the user: "Manual replies sent. → Marking everything as read."
+
 ### Step 8: Mark threads as read
+
+> Tell the user: "**Step 8 of 9 — Marking read.** Cleaning up the inbox so tomorrow starts fresh."
 
 After reviewing a thread: call `mcp__claude_ai_LinkedNav__mark_unibox_thread_read`.
 
 Do this in bulk at the end of your inbox session.
+
+> When done, tell the user: "Inbox clear. → Come back tomorrow morning. Weekly: run /analytics to see how your campaigns are performing."
 
 ### Step 9: Update pending reply text (if editing)
 

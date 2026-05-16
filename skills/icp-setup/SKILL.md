@@ -27,7 +27,12 @@ Either:
 
 ## Steps
 
+When the skill starts, tell the user:
+"I'm going to interview you to define your ideal customer profile. This creates a client-profile.yaml and sets up LinkedNav's AI personalization. Takes about 10 minutes."
+
 ### Step 1: Ask for the website URL first
+
+Tell the user: "**Step 1 of 6 — Your business** — Let me read your website to understand what you sell before we start the interview."
 
 > "What's the website of the business you're running LinkedIn outbound for?"
 
@@ -43,7 +48,11 @@ If URL provided: fetch and read the homepage, About page, and any "Customers" or
 
 If no website: ask for a two-sentence description.
 
+When done, tell the user: "Got it. Now let's nail down who you're targeting."
+
 ### Step 2: ICP interview
+
+Tell the user: "**Step 2 of 6 — ICP interview** — I'll ask you 10 questions one at a time. Be specific — vague answers produce vague targeting."
 
 Ask these questions one at a time. Pre-fill proposed answers from the website where possible.
 
@@ -58,7 +67,11 @@ Ask these questions one at a time. Pre-fill proposed answers from the website wh
 9. **What are you asking them to do?** (Book a call, reply with interest, watch a demo, etc.)
 10. **Why would they say yes?** One sentence proof point or case study.
 
+When done, tell the user: "Good. Now let's separate the must-haves from the nice-to-haves."
+
 ### Step 3: Split hard vs soft filters
+
+Tell the user: "**Step 3 of 6 — Hard vs soft filters** — This decides what disqualifies a lead entirely versus what just makes them more interesting to prioritize."
 
 For each criterion, ask: **"If you find someone who matches everything except this, do you reach out anyway?"**
 
@@ -71,7 +84,11 @@ LinkedIn-specific guidance:
 - Headcount: usually SOFT at the edges
 - Trigger (fundraise, post, etc): ALMOST ALWAYS SOFT — it's a personalization signal, not a filter
 
+When done, tell the user: "Got it. Writing your ICP profile now."
+
 ### Step 4: Write client-profile.yaml
+
+Tell the user: "**Step 4 of 6 — Saving profile** — Writing your client-profile.yaml with everything we just covered."
 
 ```yaml
 business:
@@ -117,7 +134,11 @@ created_at: <YYYY-MM-DD>
 
 Save to `profiles/<business-slug>/client-profile.yaml`.
 
+When done, tell the user: "Profile saved. → Next: creating your AI setup in LinkedNav."
+
 ### Step 5: Create AI setup in LinkedNav
+
+Tell the user: "**Step 5 of 6 — LinkedNav AI setup** — Creating the AI configuration that will personalize your messages at scale."
 
 Call `mcp__claude_ai_LinkedNav__create_ai_setup` with:
 - Name: `<business-slug>-icp`
@@ -128,7 +149,11 @@ Then call `mcp__claude_ai_LinkedNav__generate_ai_setup_icp` to auto-generate the
 
 If they want changes: call `mcp__claude_ai_LinkedNav__update_ai_setup` with corrections.
 
+When done, tell the user: "AI setup created. → Next: activating it so LinkedNav uses it for this campaign."
+
 ### Step 6: Activate the AI setup
+
+Tell the user: "**Step 6 of 6 — Activating** — Making this ICP the active setup in LinkedNav."
 
 Call `mcp__claude_ai_LinkedNav__select_ai_setup` to make this the active setup.
 
@@ -141,6 +166,8 @@ LinkedNav AI setup ID: <id>
 
 Ready to build your list.
 ```
+
+When done, tell the user: "Done. ICP is live. → Next: build your list with /social-listening (warmest leads) or /list-builder (CSV import)."
 
 ## Common gotchas
 

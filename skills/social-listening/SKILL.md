@@ -26,7 +26,11 @@ This skill monitors the right posts, pulls the engagers, imports them as leads, 
 
 ## Steps
 
+> Tell the user: "I'm going to find people who are already engaging with your competitors on LinkedIn — these are your warmest leads. We'll track the right accounts, pull engagers, and build your list."
+
 ### Step 1: Identify who to track
+
+> Tell the user: "**Step 1 of 7 — Who to track.** I need your competitors' LinkedIn company pages and any key influencers in your space."
 
 Ask:
 > "Who are your 2-3 main competitors on LinkedIn? Paste their company page URLs."
@@ -41,7 +45,11 @@ Look for the company page (building icon, not a personal profile).
 Copy the URL: linkedin.com/company/<slug>
 ```
 
+> When done, tell the user: "Got the URLs. → Setting up tracking now."
+
 ### Step 2: Track competitors
+
+> Tell the user: "**Step 2 of 7 — Setting up tracking.** Adding these accounts to LinkedNav's monitoring system."
 
 For each competitor URL:
 ```
@@ -55,7 +63,11 @@ mcp__claude_ai_LinkedNav__track_influencer
 
 Confirm each was added successfully.
 
+> When done, tell the user: "[N accounts tracked.] → Finding which posts have the most engagers."
+
 ### Step 3: Find qualifying posts
+
+> Tell the user: "**Step 3 of 7 — Recent posts.** Here are the posts with the most engagement. Pick which ones to pull leads from."
 
 Call `mcp__claude_ai_LinkedNav__get_social_listening_qualifying_posts` to see which recent posts have the most engagers.
 
@@ -72,7 +84,11 @@ Recent qualifying posts:
 Which posts do you want to pull engagers from? (All / pick by number)
 ```
 
+> When done, tell the user: "Posts selected. → Pulling engager profiles."
+
 ### Step 4: Get engagers
+
+> Tell the user: "**Step 4 of 7 — Engagers.** Pulling profiles of people who engaged with those posts and filtering against your ICP."
 
 Call `mcp__claude_ai_LinkedNav__get_social_listening_engagers` for each selected post.
 
@@ -83,7 +99,11 @@ Filter against your ICP (from `client-profile.yaml`):
 
 Show a sample of 10-20 engagers for the user to review before bulk-importing.
 
+> When done, tell the user: "[N ICP-matching engagers found.] → Check the stats summary, then we'll import."
+
 ### Step 5: Get stats
+
+> Tell the user: "**Step 5 of 7 — Stats.** Here's the full picture of what's being tracked and how many leads are available."
 
 Call `mcp__claude_ai_LinkedNav__get_social_listening_stats` to show overall pipeline:
 ```
@@ -95,7 +115,11 @@ Social listening stats:
 - ICP-match estimate: ~<N> (based on title filter)
 ```
 
+> When done, tell the user: "→ Ready to import. Which list should these go into?"
+
 ### Step 6: Import to a list
+
+> Tell the user: "**Step 6 of 7 — Importing.** Adding engagers to your LinkedNav list."
 
 Ask:
 > "Import these <N> engagers to a new list or an existing one?"
@@ -104,7 +128,11 @@ If new list: call `mcp__claude_ai_LinkedNav__create_list` with name `social-list
 
 Then call `mcp__claude_ai_LinkedNav__add_leads_bulk_to_campaign` or add contacts to the list.
 
+> When done, tell the user: "[N contacts imported.] → Want LinkedNav to auto-import new engagers every 24 hours?"
+
 ### Step 7: Set up auto-import (optional)
+
+> Tell the user: "**Step 7 of 7 — Auto-import (optional).** Set this up once and new engagers will appear in your list daily without any manual work."
 
 > "Do you want LinkedNav to automatically import new engagers every 24 hours?"
 
@@ -121,6 +149,8 @@ Call `mcp__claude_ai_LinkedNav__get_social_listening_auto_import` to confirm it'
 ### Step 8: Check import task status
 
 Call `mcp__claude_ai_LinkedNav__get_social_listening_auto_import_task` to confirm the first import ran and how many contacts were added.
+
+> When done, tell the user: "All done. → Next: /list-quality to grade the list, then /message-copywriting."
 
 ## Quality note
 

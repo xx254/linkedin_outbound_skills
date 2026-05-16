@@ -21,7 +21,12 @@ The single entry point for a fresh outbound run. Replaces "stare at 13 skills an
 
 ## Flow
 
+When the skill starts, tell the user:
+"We're going to define your target ICP and pick a list-building approach. This takes about 10-15 minutes. Let's start."
+
 ### Step 1 (asked FIRST): Business context
+
+Tell the user: "**Step 1 of 4 — Understanding your business** — I need to know what you're selling before we do anything else."
 
 Ask:
 
@@ -30,14 +35,22 @@ Ask:
 
 These answers determine whether to run `/icp-setup` and which list-building approach to recommend.
 
+When done, tell the user: "Got it. → Next: checking if you have an existing ICP profile or building a new one."
+
 ### Step 2: Load or create the ICP profile
+
+Tell the user: "**Step 2 of 4 — ICP Profile** — [If profile exists: Loading your existing ICP. / If no profile: Building your ICP with a ~10-question interview.]"
 
 Check for `profiles/<business-slug>/client-profile.yaml`:
 
 - **Exists** → load it. Ask: "Use this existing profile (`use`) or start fresh (`new`)?"
 - **Doesn't exist** → invoke `/icp-setup`. This interviews the user and creates both the local YAML and the AI setup in LinkedNav.
 
+When done, tell the user: "ICP is ready. → Next: picking your list-building approach."
+
 ### Step 3: Interactive next-skill menu
+
+Tell the user: "**Step 3 of 4 — List-building approach** — Based on your ICP, here's my recommendation for how to find leads."
 
 Once ICP is ready, show the list-building options:
 
@@ -57,7 +70,11 @@ After picking a list-building path, remind the user of the full sequence:
 - `/campaign-builder` to create, configure, and launch (LinkedIn account connection happens here)
 - `/inbox-manager` to manage replies
 
+When done, tell the user: "Got it. I'll save your campaign plan and hand you off to the next step."
+
 ### Step 4: Synthesize campaign-plan.md
+
+Tell the user: "**Step 4 of 4 — Campaign plan** — Saving your campaign checklist so you have a single reference for the full workflow."
 
 Write `profiles/<slug>/campaign-plan.md`:
 
@@ -91,6 +108,8 @@ Website: <url>
 ## Next Steps
 <branched from Step 3>
 ```
+
+When done, tell the user: "All done. Campaign plan saved to profiles/<slug>/campaign-plan.md. Your next step is [whatever they picked in step 3]."
 
 ## Safeguards
 

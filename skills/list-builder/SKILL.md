@@ -23,7 +23,12 @@ LinkedNav campaigns run on lists. Before you can send connection requests or mes
 
 ## Steps
 
+When the skill starts, tell the user:
+"I'll import your contacts into a named LinkedNav list. Have your CSV ready — it needs at minimum a linkedin_url column, or first_name + last_name + company_name."
+
 ### Step 1: Check existing lists
+
+Tell the user: "**Step 1 of 5 — Existing lists** — Checking what lists you already have so we don't create duplicates."
 
 Call `mcp__claude_ai_LinkedNav__get_lists` to show existing lists:
 ```
@@ -34,13 +39,21 @@ Existing lists:
 
 Ask: "Add to an existing list or create a new one?"
 
+When done, tell the user: "Got it. [Creating a new list / Adding to your existing list] → Next: setting up the list."
+
 ### Step 2: Create a new list (if needed)
+
+Tell the user: "**Step 2 of 5 — Creating list** — Setting up a named list for this campaign."
 
 Ask for a name. Suggest: `<icp-slug>-<YYYY-MM-DD>` (e.g., `vp-marketing-us-2026-05-16`).
 
 Call `mcp__claude_ai_LinkedNav__create_list` with the name.
 
+When done, tell the user: "List created. → Next: importing your contacts."
+
 ### Step 3: Import contacts
+
+Tell the user: "**Step 3 of 5 — Importing contacts** — Adding your contacts to the list now."
 
 Ask the user to provide the CSV path or paste LinkedIn URLs directly.
 
@@ -61,7 +74,11 @@ Importing...
 
 Skipped contacts: list them with the reason. Don't silently drop them.
 
+When done, tell the user: "Import done — [N] contacts added. Let me show you a sample."
+
 ### Step 4: Review list contents
+
+Tell the user: "**Step 4 of 5 — Review** — Showing a sample of imported contacts so you can spot any issues before we go further."
 
 Call `mcp__claude_ai_LinkedNav__get_list_contacts` on the new list and show a sample of 10 contacts:
 ```
@@ -71,13 +88,19 @@ Sample from "<list name>":
 ...
 ```
 
+When done, tell the user: "List looks good. → Next: grade the list with /list-quality before sending to catch duplicates and off-ICP contacts."
+
 ### Step 5: (Optional) Link to campaign
+
+Tell the user: "**Step 5 of 5 — Link to campaign (optional)** — Do you want to link this list to an existing campaign now, or do it later in /campaign-builder?"
 
 Ask: "Do you want to link this list to an existing campaign?"
 
 If yes: call `mcp__claude_ai_LinkedNav__link_list_to_campaign`.
 
 If no: the list stays available for later. They can link it in `/campaign-builder`.
+
+When done, tell the user: "All done. Your list is ready. → Run /list-quality to grade it before sending."
 
 ### Step 6: Move or merge (if cleanup needed)
 
