@@ -21,7 +21,32 @@ The single entry point for a fresh outbound run. Replaces "stare at 13 skills an
 
 ## Flow
 
-When the skill starts, tell the user:
+### Step 0: Check LinkedNav connection
+
+Before anything else, call `mcp__claude_ai_LinkedNav__get_account_status` to verify the MCP integration is live.
+
+**If the call succeeds:** proceed to Step 1.
+
+**If the call fails or errors:**
+
+Tell the user:
+```
+Before we can run LinkedIn outbound, you need to connect Claude Code to LinkedNav.
+
+LinkedNav is the platform that powers everything — it manages your contact lists,
+sends your campaigns, and handles inbox replies.
+
+Set it up here: http://linkednav.com/app/integrations/mcp/
+
+Once your API key is configured and Claude Code is restarted, come back and run /kickoff again.
+Or run /account-setup for step-by-step help.
+```
+
+Stop. Do not proceed until the MCP connection is confirmed working.
+
+---
+
+When the skill starts (MCP confirmed), tell the user:
 "We're going to define your target ICP and pick a list-building approach. This takes about 10-15 minutes. Let's start."
 
 ### Step 1 (asked FIRST): Business context

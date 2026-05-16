@@ -1,6 +1,10 @@
 # LinkedIn Outbound Skills
 
-Claude Code skills for LinkedIn outbound using [LinkedNav](https://linkedNav.com). 13 skills covering the full workflow — from ICP definition through campaign launch, inbox management, and analytics.
+Claude Code skills for LinkedIn outbound, powered by [LinkedNav](https://linkedNav.com).
+
+**What is LinkedNav?** LinkedNav is a LinkedIn outbound platform that manages your contact lists, sends connection requests and message sequences, handles inbox replies with AI drafts, and tracks campaign performance — all through your real LinkedIn account. These skills connect Claude Code to LinkedNav via MCP, so you can run your entire outbound workflow through conversation.
+
+13 skills covering the full workflow — from ICP definition through campaign launch, inbox management, and analytics.
 
 **New here?** Run `/kickoff` — it walks you through the whole setup in one guided flow.
 
@@ -26,21 +30,9 @@ This copies the skills to `~/.claude/skills/` where Claude Code can find them. T
 
 ### 3. Configure the LinkedNav MCP
 
-In Claude Code, open **Settings → MCP Servers** and add:
+Follow the setup guide at: **http://linkednav.com/app/integrations/mcp/**
 
-```json
-{
-  "linkedNav": {
-    "command": "npx",
-    "args": ["-y", "@linkedNav/mcp-server"],
-    "env": {
-      "LINKEDNAV_API_KEY": "your_api_key_here"
-    }
-  }
-}
-```
-
-Get your API key from: **app.linkedNav.com → Settings → API**
+This page gives you your API key and the exact MCP configuration to paste into Claude Code.
 
 ### 4. Run the kickoff
 

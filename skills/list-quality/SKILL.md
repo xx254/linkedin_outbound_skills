@@ -1,6 +1,6 @@
 ---
 name: list-quality
-description: Pre-campaign quality scorecard for any LinkedNav contact list. Grades duplicate rate, title relevance, profile completeness, ICP fit, and LinkedIn URL validity. Outputs a letter grade (A-F) and top issues to fix BEFORE you send. Run after list building, before campaign creation.
+description: Pre-campaign quality scorecard for any LinkedNav contact list. Grades duplicate rate, title relevance, profile completeness, ICP fit, and LinkedIn URL validity. Outputs a score (1-10) and top issues to fix BEFORE you send. Run after list building, before campaign creation.
 ---
 
 # LinkedNav List Quality Scorecard
