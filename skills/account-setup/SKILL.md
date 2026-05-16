@@ -48,20 +48,27 @@ If it returns data → connection is live, skip to Step 4.
 
 If it errors:
 ```
-The LinkedNav MCP integration isn't connected. Let's fix that.
+The LinkedNav MCP integration isn't connected. Two ways to fix it:
 
+Option A — OAuth (easier):
+1. Run /mcp in Claude Code
+2. Select "claude.ai LinkedNav" from the list
+3. Complete authentication in your browser
+4. Come back here
+
+Option B — API key:
 1. Get your API key: https://www.linkednav.com/app/api-keys
 2. In Claude Code, open Settings → MCP Servers and add:
 
-{
-  "linkedNav": {
-    "type": "http",
-    "url": "https://mcp.linkednav.com",
-    "headers": { "Authorization": "Bearer YOUR_API_KEY" }
-  }
-}
+   {
+     "linkedNav": {
+       "type": "http",
+       "url": "https://mcp.linkednav.com",
+       "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+     }
+   }
 
-3. Restart Claude Code and come back here.
+3. Restart Claude Code and come back here
 
 Full guide: https://www.linkednav.com/app/integrations/mcp
 ```

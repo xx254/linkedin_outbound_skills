@@ -30,6 +30,12 @@ This copies the skills to `~/.claude/skills/` where Claude Code can find them. T
 
 ### 3. Configure the LinkedNav MCP
 
+**Option A — OAuth (easier, recommended):**
+
+Run `/mcp` in Claude Code, select **"claude.ai LinkedNav"** from the list, and complete the authentication in your browser. No API key needed.
+
+**Option B — API key:**
+
 In Claude Code, open **Settings → MCP Servers** and add:
 
 ```json

@@ -36,19 +36,25 @@ Before we can run LinkedIn outbound, you need to connect Claude Code to LinkedNa
 LinkedNav is the platform that powers everything — it manages your contact lists,
 sends your campaigns, and handles inbox replies.
 
+Option A — OAuth (easier):
+1. Run /mcp in Claude Code
+2. Select "claude.ai LinkedNav" from the list
+3. Complete authentication in your browser
+4. Run /kickoff again
+
+Option B — API key:
 1. Get your API key: https://www.linkednav.com/app/api-keys
-2. Follow the MCP setup guide: https://www.linkednav.com/app/integrations/mcp
+2. In Claude Code Settings → MCP Servers, add:
+   {
+     "linkedNav": {
+       "type": "http",
+       "url": "https://mcp.linkednav.com",
+       "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+     }
+   }
+3. Restart Claude Code, then run /kickoff again
 
-In Claude Code Settings → MCP Servers, add:
-{
-  "linkedNav": {
-    "type": "http",
-    "url": "https://mcp.linkednav.com",
-    "headers": { "Authorization": "Bearer YOUR_API_KEY" }
-  }
-}
-
-Restart Claude Code, then run /kickoff again.
+Full guide: https://www.linkednav.com/app/integrations/mcp
 Or run /account-setup for step-by-step help.
 ```
 
