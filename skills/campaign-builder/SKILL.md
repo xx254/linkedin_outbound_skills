@@ -169,7 +169,7 @@ If multiple accounts: ask which one to use.
 No LinkedIn account is connected yet. You need one to send connection requests.
 
 Steps:
-1. Open app.linkedNav.com → Settings → LinkedIn Accounts
+1. Open www.linkednav.com → Settings → LinkedIn Accounts
 2. Click "Add Account"
 3. Log in with your LinkedIn credentials
 4. Approve the 2FA prompt if asked

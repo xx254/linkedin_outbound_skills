@@ -24,12 +24,12 @@ When the skill starts, tell the user:
 Tell the user: "**Step 1 of 4 — LinkedNav account** — Checking if you have a LinkedNav account before we do anything else."
 
 Ask:
-> "Do you already have a LinkedNav account at app.linkedNav.com?"
+> "Do you already have a LinkedNav account?"
 
 **If NO:**
 ```
-Go to app.linkedNav.com and click "Sign up". Use a business email.
-After you've created your account, come back here and I'll continue.
+Sign up at: https://www.linkednav.com
+Use a business email. After you've created your account, come back here.
 
 [Press Enter when ready]
 ```

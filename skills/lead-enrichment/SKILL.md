@@ -95,7 +95,7 @@ Flag:
 
 ### Step 5: Export for email campaign
 
-If using enriched emails in a separate email tool (Smartlead, etc.), export the enriched list as CSV.
+If using enriched emails in a separate email outreach tool, export the enriched list as CSV.
 
 Display the enriched contacts or offer to export them via `mcp__claude_ai_LinkedNav__get_list_contacts`.
 
@@ -113,7 +113,7 @@ Email enrichment finds addresses for ~60-80% of B2B contacts depending on compan
 
 Once enriched, run email and LinkedIn in parallel, NOT in sequence:
 - LinkedIn connection request → acceptance → messages
-- Email sequence → separate Smartlead campaign using same contacts
+- Email sequence → separate email outreach campaign using same contacts
 
 Avoid sending both a LinkedIn message AND an email on the same day. 1-2 day offset between channels feels coordinated, not spammy.
 
@@ -121,7 +121,7 @@ Avoid sending both a LinkedIn message AND an email on the same day. 1-2 day offs
 
 Contacts are enriched.
 
-**If using email too:** export the list and upload to Smartlead. (Email outbound skills: see the `coldoutboundskills` repo.)
+**If using email too:** export the enriched list as CSV and upload to your email outreach tool.
 
 **Back to LinkedIn:** → `/list-quality` to re-grade the list now that emails are populated.
 

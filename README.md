@@ -1,6 +1,6 @@
 # LinkedIn Outbound Skills
 
-Claude Code skills for LinkedIn outbound, powered by [LinkedNav](https://linkedNav.com).
+Claude Code skills for LinkedIn outbound, powered by [LinkedNav](https://www.linkednav.com).
 
 **What is LinkedNav?** LinkedNav is a LinkedIn outbound platform that manages your contact lists, sends connection requests and message sequences, handles inbox replies with AI drafts, and tracks campaign performance — all through your real LinkedIn account. These skills connect Claude Code to LinkedNav via MCP, so you can run your entire outbound workflow through conversation.
 
@@ -15,7 +15,7 @@ Claude Code skills for LinkedIn outbound, powered by [LinkedNav](https://linkedN
 ### 1. Prerequisites
 
 - [Claude Code](https://claude.com/claude-code) installed
-- A [LinkedNav](https://linkedNav.com) account (free trial available)
+- A [LinkedNav](https://www.linkednav.com) account (free trial available)
 - LinkedNav MCP configured in Claude Code (see below)
 
 ### 2. Clone and install
