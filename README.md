@@ -17,7 +17,7 @@ Claude Code skills for LinkedIn outbound using [LinkedNav](https://linkedNav.com
 ### 2. Clone the repo
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/linkedin-outbound-skills ~/linkedin-outbound-skills
+git clone https://github.com/xx254/linkedin-outbound-skills ~/linkedin-outbound-skills
 ```
 
 Then open the folder in Claude Code:
