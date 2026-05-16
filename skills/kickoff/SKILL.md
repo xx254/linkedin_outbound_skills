@@ -1,0 +1,108 @@
+---
+name: kickoff
+description: Single "start here" orchestrator for LinkedIn outbound. Defines the target, builds the ICP, and routes to the right list-building skill. LinkedIn account connection happens later, right before campaign launch. Use as the very first step for any new LinkedIn outbound campaign.
+---
+
+# LinkedIn Outbound Kickoff
+
+The single entry point for a fresh outbound run. Replaces "stare at 13 skills and guess which to run first."
+
+## When to use
+
+- First time doing LinkedIn outbound for a client or business
+- Starting a fresh campaign for a new target persona
+- Anyone who asks "where do I start?"
+
+## What this skill produces
+
+- A populated `profiles/<business-slug>/client-profile.yaml` (from `/icp-setup`)
+- An AI setup configured in LinkedNav for automated message personalization
+- An interactive menu pointing at the right list-building approach
+
+## Flow
+
+### Step 1 (asked FIRST): Business context
+
+Ask:
+
+1. **"What's the website of the business you're running LinkedIn outbound for?"** (or "give me a two-sentence description")
+2. **"Have you set up your ICP profile in LinkedNav yet?"** (yes / no)
+
+These answers determine whether to run `/icp-setup` and which list-building approach to recommend.
+
+### Step 2: Load or create the ICP profile
+
+Check for `profiles/<business-slug>/client-profile.yaml`:
+
+- **Exists** → load it. Ask: "Use this existing profile (`use`) or start fresh (`new`)?"
+- **Doesn't exist** → invoke `/icp-setup`. This interviews the user and creates both the local YAML and the AI setup in LinkedNav.
+
+### Step 3: Interactive next-skill menu
+
+Once ICP is ready, show the list-building options:
+
+```
+ICP is defined. Time to build your list. Based on your ICP (<summary>), the best fit is:
+
+[A] /social-listening  → find people engaging with competitors / influencers (best for: warm leads who already care about your space)
+[B] /list-builder      → import a CSV or build from scratch (best for: cold lists, account-based targeting)
+[C] /signal-agent      → AI-powered intent signals (best for: people actively researching solutions like yours)
+
+Recommendation: <one of A/B/C based on ICP>. Pick A / B / C:
+```
+
+After picking a list-building path, remind the user of the full sequence:
+- `/list-quality` to grade the list
+- `/message-copywriting` to write connection request + sequences
+- `/campaign-builder` to create, configure, and launch (LinkedIn account connection happens here)
+- `/inbox-manager` to manage replies
+
+### Step 4: Synthesize campaign-plan.md
+
+Write `profiles/<slug>/campaign-plan.md`:
+
+```markdown
+# LinkedIn Outbound Campaign Plan — <business name>
+Generated: YYYY-MM-DD
+
+## Business
+<one-liner>
+Website: <url>
+
+## ICP
+- Titles: <titles>
+- Industries: <industries>
+- Headcount: X-Y
+- Geography: <countries>
+
+## Offer
+- Primary CTA: <what you ask them to do>
+- Value prop: <why they should care>
+
+## Campaign Checklist
+- [x] ICP defined
+- [ ] List built
+- [ ] List quality scored ≥ 7
+- [ ] Message sequence written
+- [ ] Campaign created in LinkedNav
+- [ ] LinkedIn account connected (done at launch time)
+- [ ] Campaign activated
+
+## Next Steps
+<branched from Step 3>
+```
+
+## Safeguards
+
+- **Don't re-run `/icp-setup` blindly.** If a profile exists, ASK before overwriting.
+- **Don't auto-start campaigns.** Always confirm before activating. Real messages go to real people.
+- **LinkedIn connection happens at campaign launch**, not here. Don't ask about it during this flow.
+
+## Related skills
+
+- `/icp-setup` — invoked in step 2 (ICP interview + AI setup)
+- `/social-listening` — offered in step 3
+- `/list-builder` — offered in step 3
+- `/signal-agent` — offered in step 3
+- `/message-copywriting` — after list is built
+- `/campaign-builder` — final step; LinkedIn account connection happens inside this skill

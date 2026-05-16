@@ -1,0 +1,17 @@
+# User data — never commit client profiles or campaign data
+/profiles/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Local tooling
+.claude/
+.gstack/
+.DS_Store
+
+# Logs and artifacts
+*.log
+scorecard-*.md
+campaign-plan-*.md
