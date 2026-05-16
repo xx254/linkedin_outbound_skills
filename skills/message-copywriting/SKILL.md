@@ -39,11 +39,19 @@ LinkedIn copy fails differently than cold email. The biggest mistake: pitching i
 
 > Tell the user: "I'll write your connection request and message sequence step by step, confirming each piece before moving on. LinkedIn copy fails when it pitches too early — I'll make sure the sequence earns trust before asking for anything."
 
+### Step 0: Confirm which ICP to write for
+
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` to check existing setups.
+
+- **1 setup:** auto-select it. Tell the user: "Writing for ICP: **<setup name>**." Load the matching `profiles/<setup-slug>/client-profile.yaml`.
+- **2+ setups:** ask the user which one this sequence is for, then load the matching yaml.
+- **0 setups:** tell the user to run `/icp-setup` first — copy cannot be written without knowing who you're targeting.
+
 ## Step 1: Confirm campaign angle
 
 > Tell the user: "**Step 1 of 6 — Campaign direction.** Reading your ICP profile and confirming the targeting before I write a word."
 
-Read `client-profile.yaml`. Present a summary:
+Read the `client-profile.yaml` identified in Step 0. Present a summary:
 
 ```
 Campaign Direction:

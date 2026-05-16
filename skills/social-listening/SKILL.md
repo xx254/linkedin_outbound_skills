@@ -28,13 +28,41 @@ This skill monitors the right posts, pulls the engagers, imports them as leads, 
 
 > Tell the user: "I'm going to find people who are already engaging with your competitors on LinkedIn — these are your warmest leads. We'll track the right accounts, pull engagers, and build your list."
 
-### Step 0: Get active AI setup
+### Step 0: Identify which ICP this list belongs to
 
-Call `mcp__claude_ai_LinkedNav__get_ai_setups` and identify the currently active AI setup. Extract its slug/name — this will prefix all list names to keep leads from different AI setups separated.
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` to check existing setups.
 
-**If no active AI setup exists:**
-Tell the user: "You need an ICP profile before building a list — run `/icp-setup` first, then come back."
-Stop.
+**If 0 setups exist (first time user):**
+Tell the user:
+```
+No ICP profile found. How do you want to proceed?
+
+[A] Give me your landing page or service description → I'll walk you through
+    a full ICP setup in LinkedNav (/icp-setup). Takes ~10 min, gives better
+    AI personalization on your campaigns.
+
+[B] Tell me who you're targeting in one sentence → I'll start finding leads
+    right now. You can set up the full ICP later.
+
+Pick A or B:
+```
+- If A: invoke `/icp-setup`, then continue with the slug from that setup.
+- If B: ask "Who are you targeting?" and generate a slug from their answer (e.g., `vp-marketing-saas-us`). Use this as the list prefix.
+
+**If exactly 1 setup exists:**
+Auto-select it silently. Tell the user: "Using your ICP: **<setup name>**." Then continue.
+
+**If 2+ setups exist:**
+This is required to prevent leads from different ICPs getting mixed. Show the list:
+```
+You have multiple ICP setups:
+- <name 1> (active)
+- <name 2>
+...
+
+Which setup are these leads for? Or is this a new ICP? (If new → run /icp-setup first)
+```
+Use the selected setup's slug as the list prefix. Do not proceed until the user picks one.
 
 ### Step 1: Identify who to track
 
@@ -150,15 +178,29 @@ mcp__claude_ai_LinkedNav__set_social_listening_auto_import
 mcp__claude_ai_LinkedNav__trigger_social_listening_auto_import
 ```
 
-This means every day, new people who engage with tracked posts get added to the list automatically.
+Call `mcp__claude_ai_LinkedNav__get_social_listening_auto_import` to confirm it's active.
 
-Call `mcp__claude_ai_LinkedNav__get_social_listening_auto_import` to confirm it's active and show the import settings.
+Tell the user:
+```
+Auto-import is on. LinkedIn data takes a few minutes to process — I'll check
+the status automatically and let you know when the first batch is ready.
+```
 
-### Step 8: Check import task status
+Then poll `mcp__claude_ai_LinkedNav__get_social_listening_auto_import_task` every 30 seconds until the task status is complete. Show progress updates:
+```
+Checking... import still running (Xs elapsed)
+Checking... import still running (Xs elapsed)
+Import complete! Added <N> contacts to <list name>.
+```
 
-Call `mcp__claude_ai_LinkedNav__get_social_listening_auto_import_task` to confirm the first import ran and how many contacts were added.
+If the task takes more than 5 minutes, tell the user:
+```
+This is taking longer than usual — LinkedIn data can be slow at times.
+You can check back manually by running /social-listening and I'll pick up
+where we left off. Or wait here and I'll keep checking.
+```
 
-> When done, tell the user: "All done. → Next: /list-quality to grade the list, then /message-copywriting."
+> When done, tell the user: "All done. <N> contacts imported. → Next: /list-quality to grade the list, then /message-copywriting."
 
 ## Quality note
 

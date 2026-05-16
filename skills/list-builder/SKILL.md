@@ -26,15 +26,41 @@ LinkedNav campaigns run on lists. Before you can send connection requests or mes
 When the skill starts, tell the user:
 "I'll import your contacts into a named LinkedNav list. Have your CSV ready — it needs at minimum a linkedin_url column, or first_name + last_name + company_name."
 
-### Step 0: Get active AI setup
+### Step 0: Identify which ICP this list belongs to
 
-Call `mcp__claude_ai_LinkedNav__get_ai_setups` and identify the currently active AI setup.
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` to check existing setups.
 
-Extract its slug/name (e.g., `elevenlabs-icp`, `acme-saas`). This will be used as the prefix for the list name to keep leads from different AI setups separated.
+**If 0 setups exist (first time user):**
+Tell the user:
+```
+No ICP profile found. How do you want to proceed?
 
-**If no active AI setup exists:**
-Tell the user: "You need an ICP profile set up before building a list — this ensures leads from different campaigns don't get mixed together. Run `/icp-setup` first, then come back."
-Stop.
+[A] Give me your landing page or service description → I'll walk you through
+    a full ICP setup in LinkedNav (/icp-setup). Takes ~10 min, gives better
+    AI personalization on your campaigns.
+
+[B] Tell me who you're targeting in one sentence → I'll start building your
+    list right now. You can set up the full ICP later.
+
+Pick A or B:
+```
+- If A: invoke `/icp-setup`, then continue with the slug from that setup.
+- If B: ask "Who are you targeting?" and generate a slug from their answer (e.g., `vp-marketing-saas-us`). Use this as the list prefix.
+
+**If exactly 1 setup exists:**
+Auto-select it silently. Tell the user: "Using your ICP: **<setup name>**." Then continue — no need to ask.
+
+**If 2+ setups exist:**
+This is required to prevent leads from different ICPs getting mixed. Show the list:
+```
+You have multiple ICP setups:
+- <name 1> (active)
+- <name 2>
+...
+
+Which setup is this list for? Or is this for a new ICP? (If new → run /icp-setup first)
+```
+Use the selected setup's slug as the list prefix. Do not proceed until the user picks one.
 
 ### Step 1: Check existing lists
 

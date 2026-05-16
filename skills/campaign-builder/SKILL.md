@@ -45,13 +45,14 @@ Warn if there are already 3+ active campaigns on one LinkedIn account — Linked
 
 ### Step 2: Name the campaign
 
-> Tell the user: "**Step 2 of 8 — Campaign name.** I'll suggest a name based on your ICP and list source."
+> Tell the user: "**Step 2 of 8 — Campaign name.** I'll suggest a name based on your active ICP setup and list source."
 
-Suggest: `<icp-slug>-<list-source>-<YYYY-MM-DD>`
-Examples:
-- `vp-marketing-social-listening-2026-05`
-- `head-growth-csv-import-2026-05`
-- `cmo-competitor-engagers-q2`
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` to get the active AI setup slug. Infer the list source from the linked list name (e.g., if list is `elevenlabs-icp-social-listening-2026-05`, source is `social-listening`).
+
+Auto-suggest: `<ai-setup-slug>-<list-source>-<YYYY-MM-DD>`
+Example: `elevenlabs-icp-social-listening-2026-05`
+
+Present the suggestion and ask the user to confirm or adjust. The AI setup slug prefix should be kept.
 
 > When done, tell the user: "Name confirmed. Creating the campaign now."
 
@@ -72,6 +73,20 @@ Show the created campaign ID and confirm it was created successfully.
 ### Step 4: Link the list
 
 > Tell the user: "**Step 4 of 8 — Linking list.** Connecting your contact list to this campaign."
+
+Before linking, verify the list name prefix matches the active AI setup slug. For example, if the active setup is `elevenlabs-icp`, the list name should start with `elevenlabs-icp-`.
+
+**If prefix matches:** proceed.
+
+**If prefix doesn't match:**
+```
+Warning: this list appears to belong to a different ICP.
+  Active setup: <setup name>
+  List name: <list name>
+
+Are you sure you want to use this list for this campaign? (yes / pick a different list)
+```
+Do not link until the user confirms.
 
 Call `mcp__claude_ai_LinkedNav__link_list_to_campaign` with the campaign ID and list ID.
 

@@ -26,13 +26,41 @@ The best time to reach a Head of Marketing is the week they started a new role. 
 
 > Tell the user: "I'm going to set up LinkedNav's signal agent — it finds people who are showing buying intent right now (new job, funding, competitor engagement). These leads outperform cold lists 2-3x."
 
-### Step 0: Get active AI setup
+### Step 0: Identify which ICP these leads belong to
 
-Call `mcp__claude_ai_LinkedNav__get_ai_setups` and identify the currently active AI setup. Extract its slug/name — all lists created for signal leads will be prefixed with this slug to keep leads from different AI setups separated.
+Call `mcp__claude_ai_LinkedNav__get_ai_setups` to check existing setups.
 
-**If no active AI setup exists:**
-Tell the user: "You need an ICP profile before running signal agents — run `/icp-setup` first, then come back."
-Stop.
+**If 0 setups exist (first time user):**
+Tell the user:
+```
+No ICP profile found. How do you want to proceed?
+
+[A] Give me your landing page or service description → I'll walk you through
+    a full ICP setup in LinkedNav (/icp-setup). Takes ~10 min, gives better
+    AI personalization on your campaigns.
+
+[B] Tell me who you're targeting in one sentence → I'll start finding leads
+    right now. You can set up the full ICP later.
+
+Pick A or B:
+```
+- If A: invoke `/icp-setup`, then continue with the slug from that setup.
+- If B: ask "Who are you targeting?" and generate a slug from their answer (e.g., `vp-marketing-saas-us`). Use this as the list prefix.
+
+**If exactly 1 setup exists:**
+Auto-select it silently. Tell the user: "Using your ICP: **<setup name>**." Then continue.
+
+**If 2+ setups exist:**
+This is required to prevent leads from different ICPs getting mixed. Show the list:
+```
+You have multiple ICP setups:
+- <name 1> (active)
+- <name 2>
+...
+
+Which setup are these signal leads for? Or is this a new ICP? (If new → run /icp-setup first)
+```
+Use the selected setup's slug as the list prefix. Do not proceed until the user picks one.
 
 ### Step 1: Check existing signal agents
 
@@ -133,9 +161,15 @@ Signal leads this week:
    Why reach out: New budget, new mandate, scaling marketing team
 ```
 
-For each lead, offer: Add to list / Skip / Add to different list.
+Before showing leads, automatically create (or reuse) the list `<ai-setup-slug>-signal-agent-<YYYY-MM>` for this batch. Tell the user:
+```
+I'll add approved leads to: <ai-setup-slug>-signal-agent-<date>
+(Creating this list now if it doesn't exist yet.)
+```
 
-When adding to a list, always use or create a list named `<ai-setup-slug>-signal-agent-<date>` (e.g., `elevenlabs-icp-signal-agent-2026-05`). The AI setup slug prefix is required — do not add signal leads to a list belonging to a different AI setup.
+For each lead, offer: Add to this list / Skip / Add to a different list.
+
+Do not add signal leads to a list belonging to a different AI setup.
 
 > When done, tell the user: "[N leads added.] → Next: /list-quality to score the list, then /message-copywriting to write signal-specific connection notes."
 
