@@ -15,16 +15,17 @@ The best time to reach a Head of Marketing is the week they started a new role. 
 
 | Signal | What it catches | Best for |
 |--------|----------------|---------|
-| Job change | Person moved to a new role in the last 90 days | New decision-makers who want to make their mark |
-| Company growth | Company headcount grew >20% in 6 months | Scaling orgs that need solutions |
-| Fundraise | Recent funding round detected | Companies with budget and urgency |
-| Content engagement | Engaged with specific topics on LinkedIn | People actively researching your category |
-| Competitor mention | Posted about or engaged with a competitor | High-intent consideration stage |
-| Hiring signal | Company is hiring for a specific role | Indicates active investment in that function |
+| Just moved jobs | Person started a new role recently | New decision-makers in audit window, want to prove themselves |
+| Just posted | Person recently posted on LinkedIn | Active, engaged, receptive to outreach |
+| Growing team | Company is actively hiring / expanding headcount | Orgs investing in a function = budget and urgency |
+| New boss | Company hired new senior leadership | Leadership change = vendor reviews, new priorities |
+| Budget in hand | Company recently raised funding or shows budget signals | Urgency to spend, mandate to build |
+
+Note: competitor and influencer engagement signals are handled by `/social-listening`, not this skill.
 
 ## Steps
 
-> Tell the user: "I'm going to set up LinkedNav's signal agent — it finds people who are showing buying intent right now (new job, funding, competitor engagement). These leads outperform cold lists 2-3x."
+> Tell the user: "I'm going to set up LinkedNav's signal agent — it finds people who are showing buying intent right now (new job, new boss, growing team, fresh funding). These leads outperform cold lists 2-3x."
 
 ### Step 0: Identify which ICP these leads belong to
 
@@ -81,16 +82,47 @@ Signal agents:
 
 ### Step 2: Configure signal type
 
-> Tell the user: "**Step 2 of 6 — Signal type.** Picking the right signal for your ICP. I'll recommend one, but you choose."
+> Tell the user: "**Step 2 of 6 — Signal type.** Here are the 5 available signals. Pick one or more to monitor — I'll recommend based on your ICP."
 
-Ask which signal type to monitor. For most users, start with:
-1. **Job change** (easiest to personalize: "Congrats on the new role")
-2. **Competitor engagement** (warmest leads — already evaluating solutions)
+Show all 5 options with all selected by default. Present them for confirmation:
 
-For each signal type, configure:
-- Which titles/roles to watch (pull from `client-profile.yaml`)
-- Which industries or companies to scope to
-- How far back to look (7 days / 30 days / 90 days)
+```
+I've selected all 5 signals by default — more signals = more leads surfaced.
+Deselect any you don't want.
+
+[x] A. Just moved jobs
+      Catches people who recently started a new role.
+      Why it works: new decision-makers audit existing vendors in the first 90 days.
+      Best connection note: "Congrats on the new role at <company>..."
+
+[x] B. Just posted on LinkedIn
+      Catches people who recently published content.
+      Why it works: active posters are more likely to accept connections and reply.
+      Best connection note: "Saw your post on [topic]..."
+
+[x] C. Growing team
+      Catches companies actively hiring / expanding headcount.
+      Why it works: hiring = budget allocated, urgency to solve problems.
+      Best connection note: "Saw <company> is growing the [function] team..."
+
+[x] D. New boss
+      Catches companies that recently hired new senior leadership.
+      Why it works: new leadership = vendor reviews, new priorities, fresh mandate.
+      Best connection note: "Saw <company> brought on a new [title]..."
+
+[x] E. Budget in hand
+      Catches companies with recent fundraise or budget signals.
+      Why it works: fresh capital = urgency to deploy it, decisions move fast.
+      Best connection note: "Congrats on the [round] — scaling [function] is usually top of mind..."
+
+All 5 selected. Reply "confirm" to use all, or tell me which to remove (e.g. "remove B and D").
+```
+
+After confirmation, summarize:
+```
+Monitoring: <selected signals>
+Targeting: <titles from ICP> at <industries> companies
+```
 
 > When done, tell the user: "Signal configured. → Setting the run schedule."
 

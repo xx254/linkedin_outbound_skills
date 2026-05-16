@@ -152,7 +152,24 @@ Hand back with the AI setup slug so the calling skill continues automatically.
 
 If invoked standalone:
 ```
-→ Next: build your list with /social-listening (warmest leads) or /list-builder (CSV import).
+→ Next: build your list. Pick one:
+
+[A] /social-listening  — find people who recently liked, commented on, or shared
+                         posts from your competitors' company pages or key influencers
+                         in your space. Best for: warm leads already aware of the problem.
+
+[B] /signal-agent      — AI monitors for real-time buying intent:
+                         • Just moved jobs (new role → 90-day audit window)
+                         • Just posted on LinkedIn (active and engaged right now)
+                         • Company growing team (hiring = budget and urgency)
+                         • New senior leadership (new boss = vendor reviews)
+                         • Budget in hand (recent fundraise or budget signals)
+                         Best for: reaching the right person at exactly the right moment.
+
+[C] /list-builder      — import a CSV of LinkedIn profiles, or build a list manually.
+                         Best for: account-based targeting, inbound leads, existing databases.
+
+Which approach fits your situation?
 ```
 
 ## Common gotchas
