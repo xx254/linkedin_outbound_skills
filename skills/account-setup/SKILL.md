@@ -50,9 +50,20 @@ If it errors:
 ```
 The LinkedNav MCP integration isn't connected. Let's fix that.
 
-1. In Claude Code, open Settings → MCP Servers
-2. Add a new server: linkedNav
-3. You'll need your LinkedNav API key (see Step 3)
+1. Get your API key: https://www.linkednav.com/app/api-keys
+2. In Claude Code, open Settings → MCP Servers and add:
+
+{
+  "linkedNav": {
+    "type": "http",
+    "url": "https://mcp.linkednav.com",
+    "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+  }
+}
+
+3. Restart Claude Code and come back here.
+
+Full guide: https://www.linkednav.com/app/integrations/mcp
 ```
 
 When done, tell the user: "MCP connection verified. → Next: setting up your API key so Claude Code can call LinkedNav."
@@ -64,15 +75,21 @@ Tell the user: "**Step 3 of 4 — API key** — Setting up the API key so Claude
 Guide the user to their LinkedNav API key:
 
 ```
-To connect Claude Code to LinkedNav:
+1. Go to https://www.linkednav.com/app/api-keys
+2. Copy your API key
+3. In Claude Code, open Settings → MCP Servers and add:
 
-1. Go to app.linkedNav.com → Settings → API
-2. Click "Generate API Key" (or copy an existing one)
-3. Add it to your .env file:
+{
+  "linkedNav": {
+    "type": "http",
+    "url": "https://mcp.linkednav.com",
+    "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+  }
+}
 
-   LINKEDNAV_API_KEY=your_key_here
+4. Restart Claude Code
 
-4. Or add it to your Claude MCP config (Settings → MCP Servers → linkedNav → env)
+Full guide: https://www.linkednav.com/app/integrations/mcp
 ```
 
 Confirm the key is working by calling `mcp__claude_ai_LinkedNav__get_account_status`.

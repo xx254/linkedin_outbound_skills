@@ -30,9 +30,23 @@ This copies the skills to `~/.claude/skills/` where Claude Code can find them. T
 
 ### 3. Configure the LinkedNav MCP
 
-Follow the setup guide at: **http://linkednav.com/app/integrations/mcp/**
+In Claude Code, open **Settings → MCP Servers** and add:
 
-This page gives you your API key and the exact MCP configuration to paste into Claude Code.
+```json
+{
+  "linkedNav": {
+    "type": "http",
+    "url": "https://mcp.linkednav.com",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY"
+    }
+  }
+}
+```
+
+Get your API key from: **https://www.linkednav.com/app/api-keys**
+
+Full setup guide: **https://www.linkednav.com/app/integrations/mcp**
 
 ### 4. Run the kickoff
 
